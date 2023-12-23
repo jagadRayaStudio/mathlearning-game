@@ -9,10 +9,7 @@ namespace Animarket {
 
         private static Interactions instance;
         public bool IsInteracting { get; private set; }
-        public bool IsInteractingEmak { get; private set; }
 
-        // Game Object
-        [SerializeField] public GameObject levelPanel;
 
         private void Awake() {
             if (instance == null)
@@ -20,7 +17,6 @@ namespace Animarket {
                 instance = this;
             }
             IsInteracting = false;
-            levelPanel.SetActive(false);
         }
 
         public static Interactions GetInstance() {
@@ -40,11 +36,6 @@ namespace Animarket {
         public bool OnInteracting()
         {
             return IsInteracting;
-        }
-
-        public void InteractingEmak()
-        {
-            levelPanel.SetActive(true);
         }
     }
 }

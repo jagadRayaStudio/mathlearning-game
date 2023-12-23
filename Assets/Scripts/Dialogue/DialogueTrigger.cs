@@ -7,15 +7,24 @@ namespace Animarket
 
     public class DialogueTrigger : MonoBehaviour
     {
+        public static DialogueTrigger instance;
+
         [SerializeField] private GameObject Cue;
+        [SerializeField] public GameObject loadPanel;
         [SerializeField] public TextAsset inkJSON;
 
         private bool PlayerInRange;
 
         private void Awake()
         {
+            instance = this;
             PlayerInRange = false;
             Cue.SetActive(false);
+        }
+
+        public static DialogueTrigger GetInstance()
+        {
+            return instance;
         }
 
         private void Update()

@@ -17,21 +17,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Leaderboard.unity
     guid: c0f0c5250e4b07e4984a617c6b8f1092
-  - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: f7d81cf843bdaba46ad540417406eeec
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/LobbyScene.unity
     guid: c7566e49f2da54148812a7f8875f48c8
   - enabled: 1
-    path: Assets/Scenes/MultiplayerStudent.unity
+    path: Assets/Scenes/StudentMultiplayerScene.unity
     guid: 9cf1d63368a0b774ea024c8771c71951
   - enabled: 1
     path: Assets/Scenes/Level/Level1.unity
     guid: aa36b24102b596f4cbfecadc993066f5
   - enabled: 1
-    path: Assets/Scenes/MultiplayerTeacher.unity
+    path: Assets/Scenes/TeacherScene.unity
     guid: bb5812ee0a8b1564099e8a8785a776d2
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: e5d2b068d7e514c4bb41c1b4e85e3b28
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: f478c7051afb2714a9b5cd619047e871, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: adcb8d4d350b94a43bed9e05ec94a27f, type: 2}
