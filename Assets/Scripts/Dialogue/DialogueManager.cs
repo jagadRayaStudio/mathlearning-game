@@ -18,6 +18,7 @@ namespace Animarket
 
         [Header("Dialogue UI")]
         [SerializeField] private GameObject DialoguePanel;
+        [SerializeField] private GameObject levelPanel;
         [SerializeField] private TextMeshProUGUI DialogueText;
         [SerializeField] private TextMeshProUGUI displayNameText;
         [SerializeField] private Animator CharIcon;
@@ -41,6 +42,7 @@ namespace Animarket
         {
             DialogueIsPlaying = false;
             DialoguePanel.SetActive(false);
+            levelPanel.SetActive(false);
             nextButton.onClick.AddListener(nextstory);
         }
 
@@ -73,6 +75,7 @@ namespace Animarket
             else
             {
                 EndDialogue();
+                levelPanel.SetActive(true);
             }
         }
 
