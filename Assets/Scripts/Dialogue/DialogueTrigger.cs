@@ -10,7 +10,6 @@ namespace Animarket
         public static DialogueTrigger instance;
 
         [SerializeField] private GameObject Cue;
-        [SerializeField] public GameObject loadPanel;
         [SerializeField] public TextAsset inkJSON;
 
         private bool PlayerInRange;

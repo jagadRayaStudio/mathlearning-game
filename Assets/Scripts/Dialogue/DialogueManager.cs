@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Animarket
 
     public class DialogueManager : MonoBehaviour
     {
+        public event Action OnDialogueEnd;
         private static DialogueManager instance;
 
         private const string SPEAKER_TAG = "speaker";
@@ -18,7 +20,6 @@ namespace Animarket
 
         [Header("Dialogue UI")]
         [SerializeField] private GameObject DialoguePanel;
-        private GameObject loadPanel;
         [SerializeField] private TextMeshProUGUI DialogueText;
         [SerializeField] private TextMeshProUGUI displayNameText;
         [SerializeField] private Animator CharIcon;
@@ -43,7 +44,6 @@ namespace Animarket
             nextButton.onClick.AddListener(nextstory);
             DialogueIsPlaying = false;
             DialoguePanel.SetActive(false);
-            loadPanel.SetActive(false);
         }
 
         private void Update()
@@ -110,13 +110,7 @@ namespace Animarket
             DialogueIsPlaying = false;
             DialoguePanel.SetActive(false);
             DialogueText.text = "";
-            LoadPanel();
-        }
-
-        private void LoadPanel()
-        {
-            loadPanel = DialogueTrigger.GetInstance().loadPanel;
-            loadPanel.SetActive(true);
+            OnDialogueEnd?.Invoke();
         }
 
     }
