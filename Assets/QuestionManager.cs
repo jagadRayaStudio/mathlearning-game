@@ -9,6 +9,5 @@ namespace Animarket
     {
         public GameObject prefabQuestion;
         public Transform panelQuestion;
-
     }
 }

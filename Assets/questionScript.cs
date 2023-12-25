@@ -16,24 +16,21 @@ namespace Animarket
         [SerializeField] TMP_InputField amountInputField;
 
         public Button openShop;
-        public GameObject shopPanel;
         private int questionNumber;
         private Item selectedProduct;
 
+        private UIQuestion uiQuestion;
 
-        private void Awake()
-        {
-            shopPanel.SetActive(false);
-        }
         private void Start()
         {
+            uiQuestion = FindObjectOfType<UIQuestion>();
             openShop.onClick.AddListener(openShopPanel);
             amountInputField.onValueChanged.AddListener(UpdateGrandTotal);
         }
 
         private void openShopPanel()
         {
-            shopPanel.SetActive(true);
+           uiQuestion.openShopPanel();
         }
 
         public void SetQuestion(Item _item, int _amount)

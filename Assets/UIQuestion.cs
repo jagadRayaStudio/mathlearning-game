@@ -11,23 +11,27 @@ namespace Animarket
     {
         [SerializeField] GameObject questionList;
         [SerializeField] GameObject question;
+        [SerializeField] GameObject shopPanel;
         public Button addButton;
         public Button decreaseButton;
         public Button closeButton;
 
-        public Image selectedProductIcon;
-        public Text selectedProductName;
-        public Text selectedProductPrice;
-
+        
         private Item selectedProduct;
         private List<GameObject> questionItems = new List<GameObject>();
-        private int currentQuestionNumber = 2;
+        private int currentQuestionNumber = 1;
 
         private void Awake()
         {
+            shopPanel.SetActive(false);
             addButton.onClick.AddListener(addQuestion);
             decreaseButton.onClick.AddListener(decreaseQuestion);
             closeButton.onClick.AddListener(CloseScene);
+        }
+
+        public void openShopPanel()
+        {
+            shopPanel.SetActive(true);
         }
 
         private void CloseScene()
@@ -37,11 +41,18 @@ namespace Animarket
 
         private void addQuestion()
         {
-            GameObject newQuestion = Instantiate(question, questionList.transform);
-            questionItems.Add(newQuestion.GetComponent<questionScript>().gameObject);
-            newQuestion.GetComponent<questionScript>().SetNumber(currentQuestionNumber);
-            newQuestion.GetComponent<questionScript>().ResetAmount();
-            currentQuestionNumber++;
+            if (questionItems.Count < 10)
+            {
+                GameObject newQuestion = Instantiate(question, questionList.transform);
+                questionItems.Add(newQuestion.GetComponent<questionScript>().gameObject);
+                newQuestion.GetComponent<questionScript>().SetNumber(currentQuestionNumber);
+                newQuestion.GetComponent<questionScript>().ResetAmount();
+                currentQuestionNumber++;
+            }
+            else
+            {
+
+            }
         }
 
         private void decreaseQuestion()
