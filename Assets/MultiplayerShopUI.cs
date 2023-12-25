@@ -13,7 +13,6 @@ namespace Animarket
         [SerializeField] private GameObject productListParent;
         [SerializeField] private GameObject productPrefab;
 
-
         public GameObject shopPanel;
         public Button closeButton;
 
@@ -80,6 +79,7 @@ namespace Animarket
         void OpenProductPanel(List<Item> products)
         {
             productListPanel.SetActive(true);
+            shopPanel.SetActive(false);
             InstantiateProduct(products);
         }
 
