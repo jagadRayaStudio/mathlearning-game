@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Animarket
 {
-    public class MultiplayerShop: MonoBehaviour
+    public class MultiplayerShop : MonoBehaviour
     {
         [SerializeField] Image icon;
         [SerializeField] TMP_Text shopName;

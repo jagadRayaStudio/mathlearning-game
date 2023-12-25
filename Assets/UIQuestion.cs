@@ -16,7 +16,7 @@ namespace Animarket
         public Button closeButton;
 
         private List<GameObject> questionItems = new List<GameObject>();
-        private int currentQuestionNumber = 2;
+        private int currentQuestionNumber = 1;
 
         private void Awake()
         {
@@ -37,9 +37,6 @@ namespace Animarket
             newQuestion.GetComponent<questionScript>().SetNumber(currentQuestionNumber);
             newQuestion.GetComponent<questionScript>().ResetAmount();
             currentQuestionNumber++;
-
-
-
         }
 
         private void decreaseQuestion()
@@ -51,7 +48,7 @@ namespace Animarket
                 questionItems.Remove(lastQuestion);
                 Destroy(lastQuestion);
 
-                if (removedQuestionNumber > 1)
+                if (removedQuestionNumber > 0)
                 {
                     currentQuestionNumber--;
                 }

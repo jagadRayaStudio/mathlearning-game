@@ -8,24 +8,35 @@ namespace Animarket
 {
     public class questionScript : MonoBehaviour
     {
-        [SerializeField] Button icon;
+        [SerializeField] Image icon;
         [SerializeField] TMP_Text number;
         [SerializeField] TMP_Text amount;
         [SerializeField] TMP_Text itemName;
         [SerializeField] TMP_Text cost;
         [SerializeField] TMP_Text grandTotal;
-        [SerializeField] GameObject shopPanel;
 
+        public Button openShop;
+        public GameObject shopPanel;
         private int questionNumber;
 
+
+        private void Awake()
+        {
+            shopPanel.SetActive(false);
+        }
         private void Start()
         {
-            icon.onClick.AddListener(ShowShopPanel);
+            openShop.onClick.AddListener(openShopPanel);
         }
 
-        public void SetQuestion( Item _item, int _amount)
+        private void openShopPanel()
         {
-            icon.image.sprite = _item.sprite;
+            shopPanel.SetActive(true);
+        }
+
+        public void SetQuestion(Item _item, int _amount)
+        {
+            icon.sprite = _item.sprite;
             amount.text = _amount.ToString();
             itemName.text = _item.itemName;
             cost.text = _item.cost.ToString();
@@ -47,11 +58,6 @@ namespace Animarket
         public void ResetAmount()
         {
             amount.text = string.Empty;
-        }
-
-        private void ShowShopPanel()
-        {
-            shopPanel.SetActive(true);
         }
     }
 }
