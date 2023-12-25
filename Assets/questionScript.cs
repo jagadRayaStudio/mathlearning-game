@@ -10,14 +10,15 @@ namespace Animarket
     {
         [SerializeField] Image icon;
         [SerializeField] TMP_Text number;
-        [SerializeField] TMP_Text amount;
         [SerializeField] TMP_Text itemName;
         [SerializeField] TMP_Text cost;
         [SerializeField] TMP_Text grandTotal;
+        [SerializeField] TMP_InputField amountInputField;
 
         public Button openShop;
         public GameObject shopPanel;
         private int questionNumber;
+        private Item selectedProduct;
 
 
         private void Awake()
@@ -27,6 +28,7 @@ namespace Animarket
         private void Start()
         {
             openShop.onClick.AddListener(openShopPanel);
+            amountInputField.onValueChanged.AddListener(UpdateGrandTotal);
         }
 
         private void openShopPanel()
@@ -37,11 +39,10 @@ namespace Animarket
         public void SetQuestion(Item _item, int _amount)
         {
             icon.sprite = _item.sprite;
-            amount.text = _amount.ToString();
             itemName.text = _item.itemName;
             cost.text = _item.cost.ToString();
-            float totalHarga = _amount * _item.cost;
-            grandTotal.text = totalHarga.ToString();
+            int inputAmount = int.Parse(amountInputField.text);
+            grandTotal.text = (_item.cost * inputAmount).ToString();
         }
 
         public void SetNumber(int _number)
@@ -57,7 +58,22 @@ namespace Animarket
 
         public void ResetAmount()
         {
-            amount.text = string.Empty;
+            amountInputField.text = string.Empty;
+        }
+
+        public void SetSelectedProduct(Item product)
+        {
+            selectedProduct = product;
+            icon.sprite = product.sprite;
+            itemName.text = product.itemName;
+            cost.text = product.cost.ToString();
+            UpdateGrandTotal(amountInputField.text);
+        }
+
+        private void UpdateGrandTotal(string newValue)
+        {
+            int newAmount = int.Parse(newValue);
+            grandTotal.text = (selectedProduct.cost * newAmount).ToString();
         }
     }
 }

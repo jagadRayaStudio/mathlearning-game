@@ -15,8 +15,13 @@ namespace Animarket
         public Button decreaseButton;
         public Button closeButton;
 
+        public Image selectedProductIcon;
+        public Text selectedProductName;
+        public Text selectedProductPrice;
+
+        private Item selectedProduct;
         private List<GameObject> questionItems = new List<GameObject>();
-        private int currentQuestionNumber = 1;
+        private int currentQuestionNumber = 2;
 
         private void Awake()
         {
@@ -54,20 +59,13 @@ namespace Animarket
                 }
             }
         }
-        /*void InstantiateTaskItem()
+
+        public void SetSelectedProduct(Item product)
         {
-
-            taskItems.Clear();
-
-            foreach (var task in taskManager.GetTaskList())
-
+            foreach (var questionItem in questionItems)
             {
-                GameObject _tempTask = Instantiate(taskItem, taskItemParent.transform);
-                _tempTask.GetComponent<TaskItem>().SetTask(task.item, task.amount);
-                _tempTask.SetActive(true);
-                taskItems.Add(_tempTask);
+                questionItem.GetComponent<questionScript>().SetSelectedProduct(product);
             }
         }
-        */
     }
 }

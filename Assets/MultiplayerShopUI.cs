@@ -5,61 +5,48 @@ using UnityEngine.UI;
 
 namespace Animarket
 {
-    public class MultiplayerShopUI : UIAnim
+    public class MultiplayerShopUI : MonoBehaviour
     {
         [SerializeField] GameObject shopItemParent;
         [SerializeField] Button shopItem;
         [SerializeField] private GameObject productListPanel;
         [SerializeField] private GameObject productListParent;
-        [SerializeField] private GameObject productPrefab;
+        [SerializeField] Button productPrefab;
 
         public GameObject shopPanel;
-        public Button closeButton;
+        public GameObject productPanel;
+        public Button closeButton1;
+        public Button closeButton2;
 
+        private Item selectedProduct;
         private MultiplayershopManager shopManager;
+        private UIQuestion uiQuestion;
+
 
         private List<Button> shopItems = new List<Button>();
 
-        private bool shopItemsInstantiated = false;
-
-        protected override void Awake()
+        private void Awake()
         {
             shopManager = FindObjectOfType<MultiplayershopManager>();
             productListPanel.SetActive(false);
-            base.Awake();
         }
 
-        public override void OnEnable()
+        private void Start()
         {
-            if (!shopItemsInstantiated)
-            {
-                InstantiateShopItem();
-                shopItemsInstantiated = true;
-            }
-            else
-            {
-                foreach (var shopItem in shopItems)
-                {
-                    shopItem.gameObject.SetActive(true);
-                }
-            }
-
-            closeButton.onClick.AddListener(CloseUI);
-            base.OnEnable();
+            uiQuestion = FindObjectOfType<UIQuestion>();
+            InstantiateShopItem();
+            closeButton1.onClick.AddListener(CloseUI1);
+            closeButton2.onClick.AddListener(CloseUI2);
         }
 
-        public override void StartDisable()
-        {
-            foreach (var shopItem in shopItems)
-            {
-                shopItem.gameObject.SetActive(false);
-            }
-            base.StartDisable();
-        }
-
-        private void CloseUI()
+        private void CloseUI1()
         {
             shopPanel.SetActive(false);
+        }
+        private void CloseUI2()
+        {
+            productPanel.SetActive(false);
+            shopPanel.SetActive(true);
         }
 
         void InstantiateShopItem()
@@ -92,9 +79,20 @@ namespace Animarket
 
             foreach (var productInfo in products)
             {
-                GameObject _tempProduct = Instantiate(productPrefab, productListParent.transform);
+                Button _tempProduct = Instantiate(productPrefab, productListParent.transform);
                 _tempProduct.GetComponent<MultiplayerProduct>().SetProduct(productInfo);
+                _tempProduct.onClick.AddListener(() => SelectedProduct(productInfo));
             }
+        }
+
+        public void SelectedProduct(Item selectedProduct)
+        {
+            this.selectedProduct = selectedProduct;
+
+            shopPanel.SetActive(false);
+            productPanel.SetActive(false);
+
+            uiQuestion.SetSelectedProduct(selectedProduct);
         }
 
     }
