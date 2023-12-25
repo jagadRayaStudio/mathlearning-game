@@ -1,31 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 namespace Animarket
 {
-    public class MultiplayerShopUI : MonoBehaviour
+    public class MultiplayerShopUI : UIAnim
     {
-        [SerializeField] GameObject ShopPrefab;
-        [SerializeField] Transform shopList;
+        [SerializeField] GameObject shopItemParent;
+        [SerializeField] Button shopItem;
+        [SerializeField] private GameObject productListPanel;
+        [SerializeField] private GameObject productListParent;
+        [SerializeField] private GameObject productPrefab;
 
-        public void PopulateShopList(List<ShopInfo> shopInfos)
+
+        public GameObject shopPanel;
+        public Button closeButton;
+
+        private MultiplayershopManager shopManager;
+
+        private List<Button> shopItems = new List<Button>();
+
+        private bool shopItemsInstantiated = false;
+
+        protected override void Awake()
         {
-            ClearShopList();
+            shopManager = FindObjectOfType<MultiplayershopManager>();
+            productListPanel.SetActive(false);
+            base.Awake();
+        }
 
-            foreach (ShopInfo shopInfo in shopInfos)
+        public override void OnEnable()
+        {
+            if (!shopItemsInstantiated)
             {
-                GameObject newItemShop = Instantiate(ShopPrefab, shopList);
-                newItemShop.GetComponent<MultiplayerShop>().SetShop(shopInfo.shopName, shopInfo.shopIcon);
+                InstantiateShopItem();
+                shopItemsInstantiated = true;
+            }
+            else
+            {
+                foreach (var shopItem in shopItems)
+                {
+                    shopItem.gameObject.SetActive(true);
+                }
+            }
+
+            closeButton.onClick.AddListener(CloseUI);
+            base.OnEnable();
+        }
+
+        public override void StartDisable()
+        {
+            foreach (var shopItem in shopItems)
+            {
+                shopItem.gameObject.SetActive(false);
+            }
+            base.StartDisable();
+        }
+
+        private void CloseUI()
+        {
+            shopPanel.SetActive(false);
+        }
+
+        void InstantiateShopItem()
+        {
+            shopItems.Clear();
+
+            foreach (var shopInfo in shopManager.GetShopList())
+            {
+                Button _tempShop = Instantiate(shopItem, shopItemParent.transform);
+                _tempShop.GetComponent<MultiplayerShop>().SetShop(shopInfo.shopName, shopInfo.shopIcon);
+                _tempShop.onClick.AddListener(() => OpenProductPanel(shopInfo.products));
+                _tempShop.gameObject.SetActive(true);
+                shopItems.Add(_tempShop);
             }
         }
 
-        private void ClearShopList()
+        void OpenProductPanel(List<Item> products)
         {
-            foreach (Transform child in shopList)
+            productListPanel.SetActive(true);
+            InstantiateProduct(products);
+        }
+
+        void InstantiateProduct(List<Item> products)
+        {
+            foreach (Transform child in productListParent.transform)
             {
                 Destroy(child.gameObject);
             }
+
+            foreach (var productInfo in products)
+            {
+                GameObject _tempProduct = Instantiate(productPrefab, productListParent.transform);
+                _tempProduct.GetComponent<MultiplayerProduct>().SetProduct(productInfo);
+            }
         }
+
     }
 }

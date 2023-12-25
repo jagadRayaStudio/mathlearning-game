@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Animarket
 {
-    public class MultiplayerShop : MonoBehaviour
+    public class MultiplayerShop: MonoBehaviour
     {
-        [SerializeField] TMP_Text shopNameText;
-        [SerializeField] Image shopIcon;
+        [SerializeField] Image icon;
+        [SerializeField] TMP_Text shopName;
 
-        public void SetShop(string shopName, Sprite shopIconSprite)
+        public void SetShop(string _shopName, Sprite _shopIcon)
         {
-            shopNameText.text = shopName;
-            shopIcon.sprite = shopIconSprite;
+            shopName.text = _shopName;
+            icon.sprite = _shopIcon;
         }
     }
 }
