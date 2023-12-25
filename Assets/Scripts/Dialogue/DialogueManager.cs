@@ -17,7 +17,6 @@ namespace Animarket
         private const string SPEAKER_TAG = "speaker";
         private const string ICON_TAG = "icon";
 
-
         [Header("Dialogue UI")]
         [SerializeField] private GameObject DialoguePanel;
         [SerializeField] private TextMeshProUGUI DialogueText;

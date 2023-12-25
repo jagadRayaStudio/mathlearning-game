@@ -29,9 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level/Level1.unity
     guid: aa36b24102b596f4cbfecadc993066f5
-  - enabled: 1
-    path: Assets/Scenes/TeacherScene.unity
-    guid: bb5812ee0a8b1564099e8a8785a776d2
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: e5d2b068d7e514c4bb41c1b4e85e3b28

@@ -10,7 +10,7 @@ namespace Animarket
         public static CueTrigger instance;
 
         [SerializeField] private GameObject Cue;
-        [SerializeField] public GameObject pickRolePanel;
+        [SerializeField] public GameObject loginMultiplayerPanel;
 
         private bool PlayerInRange;
 
@@ -19,7 +19,7 @@ namespace Animarket
             instance = this;
             PlayerInRange = false;
             Cue.SetActive(false);
-            pickRolePanel.SetActive(false);
+            loginMultiplayerPanel.SetActive(false);
         }
 
         public static CueTrigger GetInstance()
@@ -34,7 +34,7 @@ namespace Animarket
                 Cue.SetActive(true);
                 if (Interactions.GetInstance().IsInteracting)
                 {
-                    pickRolePanel.SetActive(true);
+                    loginMultiplayerPanel.SetActive(true);
                 }
             }
             else
