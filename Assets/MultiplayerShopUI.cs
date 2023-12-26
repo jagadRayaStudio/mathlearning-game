@@ -9,12 +9,11 @@ namespace Animarket
     {
         [SerializeField] GameObject shopItemParent;
         [SerializeField] Button shopItem;
+        public GameObject shopPanel;
         [SerializeField] private GameObject productListPanel;
         [SerializeField] private GameObject productListParent;
         [SerializeField] Button productPrefab;
 
-        public GameObject shopPanel;
-        public GameObject productPanel;
         public Button closeButton1;
         public Button closeButton2;
 
@@ -45,7 +44,7 @@ namespace Animarket
         }
         private void CloseUI2()
         {
-            productPanel.SetActive(false);
+            productListPanel.SetActive(false);
             shopPanel.SetActive(true);
         }
 
@@ -90,7 +89,7 @@ namespace Animarket
             this.selectedProduct = selectedProduct;
 
             shopPanel.SetActive(false);
-            productPanel.SetActive(false);
+            productListPanel.SetActive(false);
 
             uiQuestion.SetSelectedProduct(selectedProduct);
         }

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Animarket
 {
-    public class questionScript : MonoBehaviour
+    public class questionScript : MonoBehaviourPun
     {
         [SerializeField] Image icon;
         [SerializeField] TMP_Text number;
@@ -30,16 +31,18 @@ namespace Animarket
 
         private void openShopPanel()
         {
-           uiQuestion.openShopPanel();
+            uiQuestion.openShopPanel();
         }
 
-        public void SetQuestion(Item _item, int _amount)
+        public void SetQuestion(QuestionData questionData)
         {
-            icon.sprite = _item.sprite;
-            itemName.text = _item.itemName;
-            cost.text = _item.cost.ToString();
-            int inputAmount = int.Parse(amountInputField.text);
-            grandTotal.text = (_item.cost * inputAmount).ToString();
+            icon.sprite = questionData.Icon;
+            itemName.text = questionData.ItemName;
+            cost.text = questionData.Cost.ToString();
+            grandTotal.text = questionData.GrandTotal.ToString();
+            int inputAmount = questionData.Amount;
+            amountInputField.text = inputAmount.ToString();
+            SetNumber(questionData.QuestionNumber);
         }
 
         public void SetNumber(int _number)
@@ -66,6 +69,32 @@ namespace Animarket
             cost.text = product.cost.ToString();
             UpdateGrandTotal(amountInputField.text);
         }
+
+        public Sprite GetIcon()
+        {
+            return icon.sprite;
+        }
+
+        public string GetItemName()
+        {
+            return itemName.text;
+        }
+
+        public float GetCost()
+        {
+            return float.Parse(cost.text);
+        }
+
+        public int GetAmount()
+        {
+            return int.Parse(amountInputField.text);
+        }
+
+        public float GetGrandTotal()
+        {
+            return float.Parse(grandTotal.text);
+        }
+
 
         private void UpdateGrandTotal(string newValue)
         {

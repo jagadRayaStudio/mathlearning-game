@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Animarket
 {
-
     [System.Serializable]
     public class ShopInfo
     {
@@ -13,7 +13,7 @@ namespace Animarket
         public List<Item> products;
     }
 
-    public class MultiplayershopManager : MonoBehaviour
+    public class MultiplayershopManager : MonoBehaviourPun
     {
         [SerializeField] private List<ShopInfo> shopList;
 

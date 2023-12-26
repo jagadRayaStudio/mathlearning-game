@@ -38,3 +38,12 @@ namespace Animarket
         }
     }
 }
+
+
+/*public void openShopPanel()
+{
+    if (photonView.IsMine)
+    {
+        shopPanel.SetActive(true);
+    }
+}*/
