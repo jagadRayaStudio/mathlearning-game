@@ -28,7 +28,14 @@ namespace Animarket
 
         public override void OnJoinedRoom()
         {
-            PhotonNetwork.LoadLevel("StudentScene");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel("TeacherScene");
+            }
+            else
+            {
+                PhotonNetwork.LoadLevel("LoadingScene");
+            }
         }
     }
 }

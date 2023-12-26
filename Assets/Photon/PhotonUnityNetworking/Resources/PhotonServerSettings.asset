@@ -39,6 +39,9 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - RPCQuestionsDone
+  - RPCAddQuestion
+  - RPCDecreaseQuestion
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

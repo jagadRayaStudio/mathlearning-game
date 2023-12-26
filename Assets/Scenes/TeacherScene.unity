@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionList: {fileID: 2036072885}
-  question: {fileID: 561751765107800261, guid: fe26245afb638cc41a301cd89798800c, type: 3}
+  questionPrefab: {fileID: 561751765107800261, guid: fe26245afb638cc41a301cd89798800c, type: 3}
   shopPanel: {fileID: 7552806781860617600}
   addButton: {fileID: 376832978}
   decreaseButton: {fileID: 1012304516}
@@ -642,6 +642,7 @@ GameObject:
   - component: {fileID: 262715965}
   - component: {fileID: 262715964}
   - component: {fileID: 262715966}
+  - component: {fileID: 262715967}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -714,6 +715,18 @@ MonoBehaviour:
   - shopName: 'Toko '
     shopIcon: {fileID: 0}
     products: []
+--- !u!114 &262715967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262715963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2233f1ffd1d2874798c18aaf7e32934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &281729658
 GameObject:
   m_ObjectHideFlags: 0
