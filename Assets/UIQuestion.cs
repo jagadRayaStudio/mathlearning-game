@@ -1,34 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 namespace Animarket
 {
-    [System.Serializable]
-    public class QuestionData: IPunObservable
-    {
-        public int QuestionNumber;
-        public Sprite Icon;
-        public string ItemName;
-        public float Cost;
-        public int Amount;
-        public float GrandTotal;
-
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            if (stream.IsWriting)
-            {
-                stream.SendNext(QuestionNumber);
-            }
-            else
-            {
-                QuestionNumber = (int)stream.ReceiveNext();
-            }
-        }
-    }
 
     public class UIQuestion : MonoBehaviourPunCallbacks
     {
@@ -38,22 +15,24 @@ namespace Animarket
         public Button addButton;
         public Button decreaseButton;
         public Button closeButton;
-        public Button startButton;
-        
+
         private Item selectedProduct;
+        private QuestionManager questionManager;
         private int currentQuestionNumber = 1;
 
         private List<GameObject> questionItems = new List<GameObject>();
-        private List<QuestionData> questionDataList = new List<QuestionData>();
+        public QuestionData[] questionDataArray;
 
         private void Awake()
         {
+            questionManager = FindObjectOfType<QuestionManager>();
+
             shopPanel.SetActive(false);
+
             addButton.onClick.AddListener(addQuestion);
             decreaseButton.onClick.AddListener(decreaseQuestion);
             closeButton.onClick.AddListener(CloseScene);
-            startButton.onClick.AddListener(startGame);
-            PhotonNetwork.AddCallbackTarget(this);
+            
         }
 
         public void openShopPanel()
@@ -76,11 +55,9 @@ namespace Animarket
                 newQuestion.GetComponent<questionScript>().ResetAmount();
                 currentQuestionNumber++;
             }
-            else
-            {
-            }
         }
 
+ 
         private void decreaseQuestion()
         {
             if (questionItems.Count > 0)
@@ -99,35 +76,30 @@ namespace Animarket
 
         public void SetSelectedProduct(Item product)
         {
-            foreach (var questionItem in questionItems)
+            if (questionItems.Count > 0)
             {
-                questionItem.GetComponent<questionScript>().SetSelectedProduct(product);
+                questionItems[questionItems.Count - 1].GetComponent<questionScript>().SetSelectedProduct(product);
             }
         }
 
         public void startGame()
+    {
+        if (questionItems.Count > 0)
         {
-            questionDataList.Clear();
-            foreach (var questionItem in questionItems)
-            {
-                QuestionData data = new QuestionData
-                {
-                    QuestionNumber = questionItem.GetComponent<questionScript>().GetNumber(),
-                    Icon = questionItem.GetComponent<questionScript>().GetIcon(),
-                    ItemName = questionItem.GetComponent<questionScript>().GetItemName(),
-                    Cost = questionItem.GetComponent<questionScript>().GetCost(),
-                    Amount = questionItem.GetComponent<questionScript>().GetAmount(),
-                    GrandTotal = questionItem.GetComponent<questionScript>().GetGrandTotal()
-                };
+            questionDataArray = new QuestionData[questionItems.Count];
 
-                questionDataList.Add(data);
+            for (int i = 0; i < questionItems.Count; i++)
+            {
+                QuestionData questionData = questionItems[i].GetComponent<questionScript>().GetQuestionData();
+                questionDataArray[i] = questionData;
             }
 
-            if (questionDataList.Count > 0)
+            if (questionDataArray.Length > 0)
             {
-                photonView.RPC("ReceiveQuestionData", RpcTarget.Others, questionDataList.ToArray());
-                Debug.Log("Data pertanyaan yang dikirim berjumlah " + questionDataList.Count);
+                questionManager.InitializeQuestions(questionDataArray);
             }
         }
+    }
+
     }
 }

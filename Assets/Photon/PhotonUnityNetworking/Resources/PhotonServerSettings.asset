@@ -50,6 +50,17 @@ MonoBehaviour:
   - SendQuestionListToStudents
   - ReceiveQuestionData
   - UpdatePlayerListRPC
+  - ChangeClientPanel
+  - ShowClientPanel
+  - StartGame
+  - startGame
+  - SetQuestionArray
+  - SetTaskArray
+  - SetSelectedQuestions
+  - ReceiveQuestions
+  - SendTaskList
+  - ReceiveTask
+  - RPC_ReceiveQuestions
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

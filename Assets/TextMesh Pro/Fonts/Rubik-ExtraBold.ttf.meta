@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b19ab9afdf21be14e9c88b7d5812f4df
+guid: 787be5d5d16fad045a63d87e7abf4900
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Short Stack
-  fallbackFontReferences: []
+  - Rubik
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 821a02a7af7e7204ea832917b90a579b, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

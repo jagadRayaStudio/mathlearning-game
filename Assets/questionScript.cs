@@ -22,6 +22,8 @@ namespace Animarket
 
         private UIQuestion uiQuestion;
 
+        private QuestionData questionData;
+
         private void Start()
         {
             uiQuestion = FindObjectOfType<UIQuestion>();
@@ -32,17 +34,6 @@ namespace Animarket
         private void openShopPanel()
         {
             uiQuestion.openShopPanel();
-        }
-
-        public void SetQuestion(QuestionData questionData)
-        {
-            icon.sprite = questionData.Icon;
-            itemName.text = questionData.ItemName;
-            cost.text = questionData.Cost.ToString();
-            grandTotal.text = questionData.GrandTotal.ToString();
-            int inputAmount = questionData.Amount;
-            amountInputField.text = inputAmount.ToString();
-            SetNumber(questionData.QuestionNumber);
         }
 
         public void SetNumber(int _number)
@@ -100,6 +91,18 @@ namespace Animarket
         {
             int newAmount = int.Parse(newValue);
             grandTotal.text = (selectedProduct.cost * newAmount).ToString();
+        }
+
+        public QuestionData GetQuestionData()
+        {
+            questionData = new QuestionData();
+            questionData.number = GetNumber();
+            questionData.itemName = GetItemName();
+            questionData.cost = (int)GetCost();
+            questionData.grandTotal = (int)GetGrandTotal();
+            questionData.amount = GetAmount();
+
+            return questionData;
         }
     }
 }

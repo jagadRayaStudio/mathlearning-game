@@ -9,18 +9,23 @@ namespace Animarket
 {
     public class MultiplayerTask : MonoBehaviourPunCallbacks
     {
-        [SerializeField] Image icon;
-        [SerializeField] TMP_Text number;
-        [SerializeField] TMP_Text itemName;
-        [SerializeField] TMP_Text amount;
-        [SerializeField] private TMP_Text grandTotal;
+        [SerializeField] TMP_Text numberText;
+        [SerializeField] TMP_Text nameText;
+        [SerializeField] TMP_Text amountText;
 
-        public void SetTask(QuestionData questionData)
+        private int cost;
+        private int grandTotal;
+
+        private TaskData taskData;
+
+        public void Initialize(TaskData taskData)
         {
-            icon.sprite = questionData.Icon;
-            itemName.text = questionData.ItemName;
-            grandTotal.text = questionData.GrandTotal.ToString();
-            amount.text = questionData.Amount.ToString();
+            this.taskData = taskData;
+            numberText.text = taskData.taskNumber.ToString();
+            nameText.text = taskData.taskName;
+            amountText.text = taskData.taskAmount.ToString();
+            cost = taskData.taskCost;
+            grandTotal = taskData.taskGrandTotal;
         }
     }
 }

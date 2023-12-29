@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73cb7d3b5d09e7a4fa2bd401c13de959
+guid: f87a65a1323dd014b900340f9067cd5d
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,10 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Harper
-  fallbackFontReferences: []
+  - Rubik
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 787be5d5d16fad045a63d87e7abf4900, type: 3}
+  - {fileID: 12800000, guid: 821a02a7af7e7204ea832917b90a579b, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
