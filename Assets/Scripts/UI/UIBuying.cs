@@ -9,16 +9,30 @@ namespace Animarket
         [SerializeField] Image itemIcon;
         [SerializeField] TMP_Text itemNameText;
         [SerializeField] TMP_Text costText;
-        [SerializeField] TMP_Text amountText;
-        [SerializeField] TMP_InputField priceInputField;
-        [SerializeField] Button increaseAmountButton;
-        [SerializeField] Button decreaseAmountButton;
+        [SerializeField] TMP_Text desc;
+        [SerializeField] TMP_InputField amountInput;
+        [SerializeField] TMP_InputField totalInput;
 
-        private BuyingManager buyingManager;
+        public static UIBuying Instance { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
-            buyingManager = GetComponentInParent<BuyingManager>();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void SetSelectedItem(Item selectedItem)
+        {
+            itemIcon.sprite = selectedItem.sprite;
+            itemNameText.text = selectedItem.name;
+            costText.text = selectedItem.cost.ToString();
+            desc.text = selectedItem.itemdesc.ToString();
         }
     }
 }

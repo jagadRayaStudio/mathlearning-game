@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 8454493314200166368}
+  uiBuying: {fileID: 4702187977493452920, guid: 9394e0b8c492ac14aa516c36f5a77949, type: 3}
+  shopItemButton: {fileID: 1314288257469198973}
 --- !u!114 &1314288257469198973
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -29,10 +30,11 @@ namespace Animarket
         {
             ClearChildren(shopItemParent);
 
+
             foreach (var shopItemData in shopData.shopItems)
             {
                 GameObject shopItemObject = Instantiate(shopItemPrefab, shopItemParent.transform);
-                shopItemObject.GetComponent<ShopItem>().SetShopItem(shopItemData);
+                shopItemObject.GetComponent<ShopItem>().SetShopItem(shopItemData, GetComponent<UIBuying>());
                 shopItems.Add(shopItemObject);
             }
         }
