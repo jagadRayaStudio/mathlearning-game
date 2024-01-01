@@ -1,110 +1,48 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 namespace Animarket
 {
-    public class UIShop : UIAnim
+    public class UIShop : MonoBehaviour
     {
-        public ShopManager shopManager;
-        private ShopCue shopCue;
-
-        //Game Object Reference
         public GameObject shopItemParent;
-        public GameObject shopItem;
-        public GameObject shopPanel;
-        public GameObject tutorialPanel;
-        public GameObject itemDescPanel;
-        public GameObject buyingPanel;
+        public GameObject shopItemPrefab;
 
-        public Stock selectedItem;
+        public static UIShop Instance { get; private set; }
+
         private List<GameObject> shopItems = new List<GameObject>();
-        //private bool shopItemsInstantiated = false;
 
-
-        //Button
-        public Button closeButton;
-        //public Button helpButton;
-
-
-
-        protected override void Awake()
+        private void Awake()
         {
-            closeButton.onClick.AddListener(StartDisable);
-            //helpButton.onClick.AddListener(OpenTutorialPanel);
-            SetShopID();
-            base.Awake();
-        }
-
-        public override void OnEnable()
-        {
-            base.OnEnable();
-        }
-
-        public void SetShopID()
-        {
-            ShopCue shopCue = GetComponent<ShopCue>();
-            if(shopCue != null)
+            if (Instance == null)
             {
-                int currentShopID = shopCue.GetShopID();
-                Debug.Log("Shop ID yang diteima UI adalah " + currentShopID);
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
 
-        public override void StartDisable()
+        public void DisplayShop(Shop shopData)
         {
-            ClearItems();
-            shopPanel.SetActive(false);
-            base.StartDisable();
-        }
+            ClearChildren(shopItemParent);
 
-        private void ClearItems()
-        {
-            foreach (var shopItem in shopItems)
+            foreach (var shopItemData in shopData.shopItems)
             {
-                Destroy(shopItem);
-            }
-
-            shopItems.Clear();
-            selectedItem = default(Stock);
-        }
-
-        /*private void InstantiateShopItem()
-        {
-            ClearUI();
-
-            foreach (Stock stock in currentShop.stock)
-            {
-                GameObject _tempShopItem = Instantiate(shopItem, shopItemParent.transform);
-                _tempShopItem.GetComponent<ShopItem>().SetItem(stock);
-                _tempShopItem.SetActive(false);
-                shopItems.Add(_tempShopItem);
+                GameObject shopItemObject = Instantiate(shopItemPrefab, shopItemParent.transform);
+                shopItemObject.GetComponent<ShopItem>().SetShopItem(shopItemData);
+                shopItems.Add(shopItemObject);
             }
         }
-        */
 
-        //private void OpenTutorialPanel()
-        //
-
-        private void ShowItemDescription()
+        private void ClearChildren(GameObject parent)
         {
-            itemDescPanel.SetActive(true);
-        }
-
-        private void HideDescriptionPanel()
-        {
-            itemDescPanel.SetActive(false);
-        }
-
-        private void PurchaseItem()
-        {
-            buyingPanel.SetActive(true);
-        }
-
-        public Stock GetSelectedItem()
-        {
-            return selectedItem;
+            foreach (Transform child in parent.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

@@ -539,7 +539,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 127002653715365756}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Animarket.UIQuestion, Assembly-CSharp
+        m_MethodName: openShopPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &127002653794922040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,8 +1379,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 127002654389394932}
-  - component: {fileID: 127002654389394935}
   - component: {fileID: -5865924740093250465}
+  - component: {fileID: 5605249025379879187}
   m_Layer: 5
   m_Name: question
   m_TagString: Untagged
@@ -1404,25 +1416,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -1.9421997}
   m_SizeDelta: {x: 184.571, y: 42.8015}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &127002654389394935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 127002654389394933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dead32df0e7d6e45a8ae90076ac1c5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 127002653534516274}
-  number: {fileID: 127002654621054241}
-  itemName: {fileID: 127002654203114415}
-  cost: {fileID: 127002654168250977}
-  grandTotal: {fileID: 127002653336940351}
-  amountInputField: {fileID: 127002653951307175}
-  openShop: {fileID: 127002653715365758}
 --- !u!114 &-5865924740093250465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1445,6 +1438,25 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5605249025379879187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127002654389394933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dead32df0e7d6e45a8ae90076ac1c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 127002653534516274}
+  number: {fileID: 127002654621054241}
+  itemName: {fileID: 127002654203114415}
+  cost: {fileID: 127002654168250977}
+  grandTotal: {fileID: 127002653336940351}
+  amountInputField: {fileID: 127002653951307175}
+  openShop: {fileID: 127002653715365758}
 --- !u!1 &127002654621054303
 GameObject:
   m_ObjectHideFlags: 0

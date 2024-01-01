@@ -5,55 +5,43 @@ using UnityEngine.UI;
 
 namespace Animarket
 {
-    public class UITask : UIAnim
+    public class UITask : MonoBehaviour
     {
         [SerializeField] GameObject taskItemParent;
         [SerializeField] GameObject taskItem;
 
         public GameObject taskPanel;
         public GameObject taskTutorialPanel;
-        public Button helpButton;
-        public Button closeButton;
 
         private TaskManager taskManager;
 
         private List<GameObject> taskItems = new List<GameObject>();
 
-        private bool taskItemsInstantiated = false;
-
-        protected override void Awake()
+        private void Awake()
         {
             taskManager = FindObjectOfType<TaskManager>();
-            base.Awake();
+            taskPanel.SetActive(false);
+            taskTutorialPanel.SetActive(false);
         }
 
-        public override void OnEnable()
+        private void Start()
         {
-            if (!taskItemsInstantiated)
-            {
-                InstantiateTaskItem();
-                taskItemsInstantiated = true;
-            }
-            else
-            {
-                foreach (var taskItem in taskItems)
-                {
-                    taskItem.SetActive(true);
-                }
-            }
 
-            helpButton.onClick.AddListener(ShowTutorial);
-            closeButton.onClick.AddListener(CloseUI);
-            base.OnEnable();
+            InstantiateTaskItem();
         }
 
-        public override void StartDisable()
+        void InstantiateTaskItem()
         {
-            foreach (var taskItem in taskItems)
+            taskItems.Clear();
+
+            foreach (var task in taskManager.GetTaskList())
+
             {
-                taskItem.SetActive(false);
+                GameObject _tempTask = Instantiate(taskItem, taskItemParent.transform);
+                _tempTask.GetComponent<TaskItem>().SetTask(task.item, task.amount);
+                _tempTask.SetActive(true);
+                taskItems.Add(_tempTask);
             }
-            base.StartDisable();
         }
 
         private void ShowTutorial()
@@ -66,19 +54,9 @@ namespace Animarket
             taskPanel.SetActive(false);
         }
 
-        void InstantiateTaskItem()
+        public void GetSelectedItem()
         {
 
-            taskItems.Clear();
-
-            foreach (var task in taskManager.GetTaskList())
-
-            {
-                GameObject _tempTask = Instantiate(taskItem, taskItemParent.transform);
-                _tempTask.GetComponent<TaskItem>().SetTask(task.item, task.amount);
-                _tempTask.SetActive(true);
-                taskItems.Add(_tempTask);
-            }
         }
     }
 }

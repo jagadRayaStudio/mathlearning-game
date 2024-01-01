@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Animarket
 {
-    public class questionScript : MonoBehaviourPun
+    public class questionScript : MonoBehaviour
     {
         [SerializeField] Image icon;
         [SerializeField] TMP_Text number;

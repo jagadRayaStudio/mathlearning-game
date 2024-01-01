@@ -281,7 +281,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 75501546}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 91454034}
+        m_TargetAssemblyTypeName: Animarket.UIQuestion, Assembly-CSharp
+        m_MethodName: CloseScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &75501546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,10 +436,7 @@ MonoBehaviour:
   questionList: {fileID: 2036072885}
   question: {fileID: 127002654389394933, guid: fe26245afb638cc41a301cd89798800c, type: 3}
   shopPanel: {fileID: 7552806781860617600}
-  addButton: {fileID: 376832978}
-  decreaseButton: {fileID: 1012304516}
-  closeButton: {fileID: 75501545}
-  questionDataArray: []
+  questionDataList: []
 --- !u!114 &91454035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,8 +1298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313aa7f2ac928454fa2fae0325ef9e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskList: {fileID: 1944211744}
-  task: {fileID: 7239451538008189445, guid: 9c696db2ad88888489e3c33f8fcc03fc, type: 3}
+  taskPrefab: {fileID: 7239451538008189445, guid: 9c696db2ad88888489e3c33f8fcc03fc, type: 3}
+  taskListParent: {fileID: 1944211744}
 --- !u!114 &308665489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,7 +1689,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 376832979}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 91454034}
+        m_TargetAssemblyTypeName: Animarket.UIQuestion, Assembly-CSharp
+        m_MethodName: addQuestion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &376832979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3856,7 +3877,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1012304517}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 91454034}
+        m_TargetAssemblyTypeName: Animarket.UIQuestion, Assembly-CSharp
+        m_MethodName: decreaseQuestion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1012304517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4403,8 +4436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24e8072b4bc72d4fa70f4f4348aae5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskListParent: {fileID: 1944211745}
-  taskPrefab: {fileID: 7239451538008189445, guid: 9c696db2ad88888489e3c33f8fcc03fc, type: 3}
   winPanel: {fileID: 0}
   losePanel: {fileID: 0}
 --- !u!4 &1069848205
@@ -4434,7 +4465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fbe865bf0f44a4e89a6762d30419fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionArray: []
+  questionList: []
 --- !u!114 &1069848207
 MonoBehaviour:
   m_ObjectHideFlags: 0

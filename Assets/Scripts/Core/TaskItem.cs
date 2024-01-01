@@ -11,6 +11,12 @@ namespace Animarket
         [SerializeField] Image icon;
         [SerializeField] TMP_Text amount;
         [SerializeField] TMP_Text itemName;
+        [SerializeField] GameObject checker;
+
+        public void Start()
+        {
+            checker.SetActive(false);
+        }
 
         public void SetTask(Item _item, int _amount)
         {

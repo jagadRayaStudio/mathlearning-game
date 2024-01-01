@@ -16,40 +16,45 @@ namespace Animarket
 
     public class QuestionManager : MonoBehaviourPunCallbacks
     {
-        public QuestionData[] questionArray;
+        public List<QuestionData> questionList = new List<QuestionData>();
 
-        public void InitializeQuestions(QuestionData[] questions)
+        public void InitializeQuestions(List<QuestionData> questions)
         {
-            questionArray = questions;
-
-            byte[] questionsAsBytes = objectToBytes(questionArray);
-            photonView.RPC("RPC_ReceiveQuestions", RpcTarget.All, "Testevent", questionsAsBytes);
+            questionList = questions;
+            SendQuestionsToTaskManager();
         }
 
-        [PunRPC]
-        private void RPC_ReceiveQuestions(string eventName, byte[] argsAsBytes)
+        private void SendQuestionsToTaskManager()
         {
-            QuestionData[] receivedQuestions = bytesToObject(argsAsBytes) as QuestionData[];
+            byte[] questionListBytes = ListToBytes(questionList);
 
-            FindObjectOfType<TaskManagerMultiplayer>().ReceiveQuestions(receivedQuestions);
+            photonView.RPC("RPC_ReceiveQuestions", RpcTarget.MasterClient, questionListBytes);
         }
 
-        private byte[] objectToBytes(object obj)
+        private byte[] ListToBytes(List<QuestionData> list)
         {
             System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             using (System.IO.MemoryStream stream = new System.IO.MemoryStream())
             {
-                formatter.Serialize(stream, obj);
+                formatter.Serialize(stream, list);
                 return stream.ToArray();
             }
         }
 
-        private object bytesToObject(byte[] bytes)
+        [PunRPC]
+        private void RPC_ReceiveQuestions(byte[] questionListBytes)
+        {
+            List<QuestionData> receivedQuestions = BytesToList(questionListBytes);
+
+            FindObjectOfType<TaskManagerMultiplayer>().ReceiveQuestions(receivedQuestions);
+        }
+
+        private List<QuestionData> BytesToList(byte[] bytes)
         {
             System.Runtime.Serialization.Formatters.Binary.BinaryFormatter formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             using (System.IO.MemoryStream stream = new System.IO.MemoryStream(bytes))
             {
-                return formatter.Deserialize(stream);
+                return formatter.Deserialize(stream) as List<QuestionData>;
             }
         }
     }

@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Animarket {
+namespace Animarket
+{
 
-    public class Interactions : MonoBehaviour {
+    public class Interactions : MonoBehaviour
+    {
 
         private static Interactions instance;
         public bool IsInteracting { get; private set; }
-
-
         private void Awake() {
             if (instance == null)
             {

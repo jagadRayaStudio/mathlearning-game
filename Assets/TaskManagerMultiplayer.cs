@@ -1,9 +1,12 @@
+// TaskManagerMultiplayer.cs
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
 namespace Animarket
 {
+    [System.Serializable]
     public class TaskData
     {
         public int taskNumber;
@@ -15,8 +18,6 @@ namespace Animarket
 
     public class TaskManagerMultiplayer : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private Transform taskListParent;
-        [SerializeField] private GameObject taskPrefab;
         [SerializeField] private GameObject winPanel;
         [SerializeField] private GameObject losePanel;
 
@@ -39,16 +40,30 @@ namespace Animarket
             losePanel.SetActive(false);
         }
 
-        public void ReceiveQuestions(QuestionData[] receivedQuestions)
+        public void ReceiveQuestions(List<QuestionData> receivedQuestions)
         {
-            for (int i = 0; i < receivedQuestions.Length; i++)
+            Debug.Log($"Received {receivedQuestions.Count} question(s).");
+            List<TaskData> taskDataList = ConvertQuestionsToTasks(receivedQuestions);
+            SendTask();
+        }
+
+        public void SendTask()
+        {
+            UITaskMultiplayer uiTaskMultiplayer = FindObjectOfType<UITaskMultiplayer>();
+            uiTaskMultiplayer.InitializeUI(taskDataList);
+        }
+
+        private List<TaskData> ConvertQuestionsToTasks(List<QuestionData> questions)
+        {
+            List<TaskData> taskDataList = new List<TaskData>();
+
+            foreach (QuestionData questionData in questions)
             {
-                TaskData taskData = GetTaskData(receivedQuestions[i]);
+                TaskData taskData = GetTaskData(questionData);
                 taskDataList.Add(taskData);
-                GameObject newTaskItem = PhotonNetwork.Instantiate(taskPrefab.name, Vector3.zero, Quaternion.identity);
-                MultiplayerTask multiplayerTask = newTaskItem.GetComponent<MultiplayerTask>();
-                multiplayerTask.Initialize(taskData);
             }
+
+            return taskDataList;
         }
 
         private TaskData GetTaskData(QuestionData questionData)
@@ -63,6 +78,11 @@ namespace Animarket
             };
 
             return taskData;
+        }
+
+        public List<TaskData> GetTaskList()
+        {
+            return taskDataList;
         }
 
         public void CheckAnswer(Item selectedProduct, int amount, int grandTotal)
@@ -84,7 +104,6 @@ namespace Animarket
                 {
                     taskDataList.Remove(matchingTask);
                     winPanel.SetActive(true);
-
                 }
                 else
                 {
@@ -98,18 +117,15 @@ namespace Animarket
             if (selectedProduct.itemName == taskData.taskName &&
                 amount == taskData.taskAmount &&
                 grandTotal == taskData.taskGrandTotal)
-
             {
-                return true;
                 Debug.Log("Jawaban Benar!");
+                return true;
             }
             else
             {
                 Debug.Log("Jawaban Salah!");
+                return false;
             }
-            return false;
-
         }
-
     }
 }

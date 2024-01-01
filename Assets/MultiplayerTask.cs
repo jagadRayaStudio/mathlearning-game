@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
 namespace Animarket
 {
-    public class MultiplayerTask : MonoBehaviourPunCallbacks
+    public class MultiplayerTask : MonoBehaviour
     {
         [SerializeField] TMP_Text numberText;
         [SerializeField] TMP_Text nameText;

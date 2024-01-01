@@ -1,38 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 namespace Animarket
 {
-
-    public class UIQuestion : MonoBehaviourPunCallbacks
+    public class UIQuestion : MonoBehaviour
     {
         [SerializeField] GameObject questionList;
         [SerializeField] GameObject question;
         [SerializeField] GameObject shopPanel;
-        public Button addButton;
-        public Button decreaseButton;
-        public Button closeButton;
 
         private Item selectedProduct;
         private QuestionManager questionManager;
         private int currentQuestionNumber = 1;
 
         private List<GameObject> questionItems = new List<GameObject>();
-        public QuestionData[] questionDataArray;
+        public List<QuestionData> questionDataList = new List<QuestionData>();
 
         private void Awake()
         {
             questionManager = FindObjectOfType<QuestionManager>();
 
             shopPanel.SetActive(false);
-
-            addButton.onClick.AddListener(addQuestion);
-            decreaseButton.onClick.AddListener(decreaseQuestion);
-            closeButton.onClick.AddListener(CloseScene);
-            
         }
 
         public void openShopPanel()
@@ -57,7 +47,6 @@ namespace Animarket
             }
         }
 
- 
         private void decreaseQuestion()
         {
             if (questionItems.Count > 0)
@@ -83,23 +72,22 @@ namespace Animarket
         }
 
         public void startGame()
-    {
-        if (questionItems.Count > 0)
         {
-            questionDataArray = new QuestionData[questionItems.Count];
-
-            for (int i = 0; i < questionItems.Count; i++)
+            if (questionItems.Count > 0)
             {
-                QuestionData questionData = questionItems[i].GetComponent<questionScript>().GetQuestionData();
-                questionDataArray[i] = questionData;
-            }
+                questionDataList.Clear();
 
-            if (questionDataArray.Length > 0)
-            {
-                questionManager.InitializeQuestions(questionDataArray);
+                for (int i = 0; i < questionItems.Count; i++)
+                {
+                    QuestionData questionData = questionItems[i].GetComponent<questionScript>().GetQuestionData();
+                    questionDataList.Add(questionData);
+                }
+
+                if (questionDataList.Count > 0)
+                {
+                    questionManager.InitializeQuestions(questionDataList);
+                }
             }
         }
-    }
-
     }
 }

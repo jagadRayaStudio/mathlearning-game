@@ -8,28 +8,17 @@ namespace Animarket {
 
     public class ShopItem : MonoBehaviour {
         public Image icon;
-        public Stock stock;
-        //public TMP_Text itemName;
-        //public TMP_Text price;
+        private int cost;
+        private string itemName;
+        private string itemDesc;
 
-        UIShop uishop;
-
-        public void SetItem(Stock stockItem) {
-            if (stockItem.item != null) {
-                stock = stockItem;
-                icon.sprite = stock.item.sprite;
-                //itemName.text = stock.item.name;
-                //price.text = stock.item.cost.ToString() + "Anikoin";
-            }
-
-            //this.stock = stock;
-        }
-        private void Awake() {
-        }
-
-        public Stock GetStock()
+        public void SetShopItem(Item _item)
         {
-            return stock;
+            icon.sprite = _item.sprite;
+            itemName = _item.name;
+            cost = _item.cost;
+            itemDesc = _item.itemdesc;
+
         }
     }
 }
