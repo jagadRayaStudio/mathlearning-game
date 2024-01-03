@@ -40,6 +40,7 @@ namespace Animarket
             }
             else
             {
+                
                 clientPanel.SetActive(true);
             }
         }
@@ -47,6 +48,7 @@ namespace Animarket
         [PunRPC]
         public void ShowClientPanel()
         {
+            loadingPanel.SetActive(false);
             clientPanel.SetActive(true);
         }
     }

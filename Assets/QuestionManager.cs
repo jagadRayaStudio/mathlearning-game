@@ -28,7 +28,7 @@ namespace Animarket
         {
             byte[] questionListBytes = ListToBytes(questionList);
 
-            photonView.RPC("RPC_ReceiveQuestions", RpcTarget.MasterClient, questionListBytes);
+            photonView.RPC("RPC_ReceiveQuestions", RpcTarget.All, questionListBytes);
         }
 
         private byte[] ListToBytes(List<QuestionData> list)

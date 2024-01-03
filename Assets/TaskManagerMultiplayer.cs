@@ -1,7 +1,7 @@
-// TaskManagerMultiplayer.cs
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 namespace Animarket
@@ -43,27 +43,23 @@ namespace Animarket
         public void ReceiveQuestions(List<QuestionData> receivedQuestions)
         {
             Debug.Log($"Received {receivedQuestions.Count} question(s).");
-            List<TaskData> taskDataList = ConvertQuestionsToTasks(receivedQuestions);
-            SendTask();
-        }
+            taskDataList.Clear();
+            taskDataList = ConvertQuestionsToTasks(receivedQuestions);
 
-        public void SendTask()
-        {
-            UITaskMultiplayer uiTaskMultiplayer = FindObjectOfType<UITaskMultiplayer>();
-            uiTaskMultiplayer.InitializeUI(taskDataList);
+            UITaskMultiplayer.Instance.SetReceivedTasksFlag(true);
         }
 
         private List<TaskData> ConvertQuestionsToTasks(List<QuestionData> questions)
         {
-            List<TaskData> taskDataList = new List<TaskData>();
+            List<TaskData> localTaskDataList = new List<TaskData>();
 
             foreach (QuestionData questionData in questions)
             {
                 TaskData taskData = GetTaskData(questionData);
-                taskDataList.Add(taskData);
+                localTaskDataList.Add(taskData);
             }
 
-            return taskDataList;
+            return localTaskDataList;
         }
 
         private TaskData GetTaskData(QuestionData questionData)
@@ -85,46 +81,16 @@ namespace Animarket
             return taskDataList;
         }
 
-        public void CheckAnswer(Item selectedProduct, int amount, int grandTotal)
+        public void RemoveTask(TaskData taskToRemove)
         {
             if (photonView.IsMine)
             {
-                TaskData matchingTask = null;
+                bool taskRemoved = taskDataList.Remove(taskToRemove);
 
-                foreach (TaskData taskData in taskDataList)
+                if (taskRemoved && taskDataList.Count == 0)
                 {
-                    if (IsAnswerCorrect(taskData, selectedProduct, amount, grandTotal))
-                    {
-                        matchingTask = taskData;
-                        break;
-                    }
-                }
-
-                if (matchingTask != null)
-                {
-                    taskDataList.Remove(matchingTask);
                     winPanel.SetActive(true);
                 }
-                else
-                {
-                    losePanel.SetActive(false);
-                }
-            }
-        }
-
-        private bool IsAnswerCorrect(TaskData taskData, Item selectedProduct, int amount, int grandTotal)
-        {
-            if (selectedProduct.itemName == taskData.taskName &&
-                amount == taskData.taskAmount &&
-                grandTotal == taskData.taskGrandTotal)
-            {
-                Debug.Log("Jawaban Benar!");
-                return true;
-            }
-            else
-            {
-                Debug.Log("Jawaban Salah!");
-                return false;
             }
         }
     }

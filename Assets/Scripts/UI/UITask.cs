@@ -7,11 +7,12 @@ namespace Animarket
 {
     public class UITask : MonoBehaviour
     {
+        public static UITask Instance { get; private set; }
+
         [SerializeField] GameObject taskItemParent;
         [SerializeField] GameObject taskItem;
 
         public GameObject taskPanel;
-        public GameObject taskTutorialPanel;
 
         private TaskManager taskManager;
 
@@ -19,44 +20,52 @@ namespace Animarket
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             taskManager = FindObjectOfType<TaskManager>();
             taskPanel.SetActive(false);
-            taskTutorialPanel.SetActive(false);
         }
 
         private void Start()
         {
-
-            InstantiateTaskItem();
+            UpdateTaskPanel();
         }
 
-        void InstantiateTaskItem()
+        void UpdateTaskPanel()
         {
-            taskItems.Clear();
+            ClearTaskItems();
 
             foreach (var task in taskManager.GetTaskList())
-
             {
-                GameObject _tempTask = Instantiate(taskItem, taskItemParent.transform);
-                _tempTask.GetComponent<TaskItem>().SetTask(task.item, task.amount);
-                _tempTask.SetActive(true);
-                taskItems.Add(_tempTask);
+                if (!task.isDone)
+                {
+                    GameObject _tempTask = Instantiate(taskItem, taskItemParent.transform);
+                    _tempTask.GetComponent<TaskItem>().SetTask(task.item, task.amount);
+                    _tempTask.SetActive(true);
+                    taskItems.Add(_tempTask);
+                }
             }
         }
 
-        private void ShowTutorial()
+        public void TaskCompleted(Task completedTask)
         {
-            taskTutorialPanel.SetActive(true);
+            UpdateTaskPanel();
         }
 
-        private void CloseUI()
+        void ClearTaskItems()
         {
-            taskPanel.SetActive(false);
-        }
-
-        public void GetSelectedItem()
-        {
-
+            foreach (var taskItem in taskItems)
+            {
+                Destroy(taskItem);
+            }
+            taskItems.Clear();
         }
     }
 }

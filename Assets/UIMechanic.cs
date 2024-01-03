@@ -16,7 +16,6 @@ namespace Animarket
 
         [SerializeField] private TMP_InputField amountInput;
         [SerializeField] private TMP_InputField totalInput;
-        [SerializeField] private Button sendAnswerButton;
 
         [SerializeField] private GameObject warningPanel;
 
@@ -25,7 +24,6 @@ namespace Animarket
         private void Start()
         {
             warningPanel.SetActive(false);
-            sendAnswerButton.onClick.AddListener(SendAnswer);
         }
 
         public void SetSelectedProduct(Item product)
@@ -38,28 +36,37 @@ namespace Animarket
             itemDesc.text = selectedProduct.itemdesc;
         }
 
-        private void SendAnswer()
+        public void SendAnswer()
         {
-            if (photonView.IsMine)
-            {
-                int amount = 0;
-                if (int.TryParse(amountInput.text, out amount))
+                TaskManagerMultiplayer taskManager = FindObjectOfType<TaskManagerMultiplayer>();
+
+                List<TaskData> localTaskDataList = taskManager.GetTaskList();
+
+                int inputAmount = int.Parse(amountInput.text);
+                int inputTotal = int.Parse(totalInput.text);
+
+                Debug.Log($"Selected Product: {selectedProduct.itemName}, Amount: {inputAmount}, Total: {inputTotal}");
+
+                TaskData matchingTask = localTaskDataList.Find(task =>
+                    task.taskName == selectedProduct.itemName &&
+                    task.taskAmount == inputAmount &&
+                    task.taskGrandTotal == inputTotal);
+
+                if (matchingTask != null)
                 {
-                    int grandTotal = 0;
-                    if (int.TryParse(totalInput.text, out grandTotal))
-                    {
-                        TaskManagerMultiplayer.Instance.CheckAnswer(selectedProduct, amount, grandTotal);
-                    }
-                    else
-                    {
-                        warningPanel.SetActive(true);
-                    }
+                    Debug.Log($"Correct Answer! Task {matchingTask.taskName} completed.");
+                    taskManager.RemoveTask(matchingTask);
+
+                    UITaskMultiplayer.Instance.TaskCompleted(matchingTask);
                 }
                 else
                 {
-                    warningPanel.SetActive(true);
+                    Debug.Log("Wrong Answer! No matching task found.");
+                    // Tugas tidak cocok dengan jawaban yang diberikan
+                    // Tambahkan logika penanganan kesalahan jika diperlukan
                 }
-            }
         }
+
+
     }
 }

@@ -8,15 +8,10 @@ namespace Animarket
 {
     public class TaskItem : MonoBehaviour
     {
-        [SerializeField] Image icon;
-        [SerializeField] TMP_Text amount;
-        [SerializeField] TMP_Text itemName;
-        [SerializeField] GameObject checker;
+        [SerializeField] public Image icon;
+        [SerializeField] public TMP_Text amount;
+        [SerializeField] public TMP_Text itemName;
 
-        public void Start()
-        {
-            checker.SetActive(false);
-        }
 
         public void SetTask(Item _item, int _amount)
         {

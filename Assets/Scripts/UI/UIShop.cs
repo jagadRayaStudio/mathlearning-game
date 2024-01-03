@@ -30,7 +30,6 @@ namespace Animarket
         {
             ClearChildren(shopItemParent);
 
-
             foreach (var shopItemData in shopData.shopItems)
             {
                 GameObject shopItemObject = Instantiate(shopItemPrefab, shopItemParent.transform);

@@ -17,6 +17,11 @@ namespace Animarket
 
         private TaskData taskData;
 
+        public TaskData GetTaskData()
+        {
+            return taskData;
+        }
+
         public void Initialize(TaskData taskData)
         {
             this.taskData = taskData;
