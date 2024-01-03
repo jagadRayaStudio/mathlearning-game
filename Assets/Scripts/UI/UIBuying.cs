@@ -13,6 +13,7 @@ namespace Animarket
         [SerializeField] TMP_Text desc;
         [SerializeField] TMP_InputField amountInput;
         [SerializeField] TMP_InputField totalInput;
+        [SerializeField] GameObject losePanel;
 
         public static UIBuying Instance { get; private set; }
         private Item selectedItem;
@@ -27,6 +28,7 @@ namespace Animarket
             {
                 Destroy(gameObject);
             }
+            losePanel.SetActive(false);
         }
 
         public void SetSelectedItem(Item item)
@@ -59,6 +61,10 @@ namespace Animarket
                     UITask.Instance.TaskCompleted(task);
                     Debug.Log($"Task {task.item.name} removed from the task list.");
                     break;
+                }
+                else
+                {
+                    losePanel.SetActive(true);
                 }
             }
         }

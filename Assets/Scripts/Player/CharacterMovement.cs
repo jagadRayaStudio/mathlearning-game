@@ -48,19 +48,19 @@ namespace Animarket
             if (moveLeft && !DialogueManager.GetInstance().DialogueIsPlaying)
             {
                 horizontalMove = -speed;
-                animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+                animator.SetBool("IsWalking", true);
                 FlipSprite(false);
             }
             else if (moveRight && !DialogueManager.GetInstance().DialogueIsPlaying)
             {
                 horizontalMove = speed;
-                animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+                animator.SetBool("IsWalking", true);
                 FlipSprite(true);
             }
             else
             {
                 horizontalMove = 0;
-                animator.SetFloat("Speed", 0);
+                animator.SetBool("IsWalking", false);
             }
         }
 
